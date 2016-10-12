@@ -1,0 +1,6 @@
+Essay set
+Number of words
+Unique words / words
+Average word length
+Spelling errors / words
+Commas / words (surprisingly good)
