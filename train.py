@@ -14,3 +14,4 @@ for i in feats:
 X= np.array(X)   #X is the input feature 2D vector input to the classifier
 NN = MLPClassifier(solver='lbfgs', alpha=1e-5, \
             hidden_layer_sizes=(8, 4), random_state=1)
+NN.fit(X, labels)
