@@ -11,18 +11,19 @@ The following are the features used from the dataset:
 5.Commas
 6.Essay set
 """
+# train_essays = np.load('/home/psi/PuchoTask/Datasets/essay_train.npy')
+# train_score = np.load('/home/psi/PuchoTask/train_score.npy')
+# train_sets = np.load('/home/psi/PuchoTask/Datasets/essay_sets.npy')
 
-essays = np.load('/home/psi/PuchoTask/Datasets/essay_train.npy')
-score = np.load('/home/psi/PuchoTask/Datasets/score_train.npy')
-sets = np.load('/home/psi/PuchoTask/Datasets/essay_sets.npy')
+# test_ids = np.load('/home/psi/PuchoTask/test_ids.npy')
+# test_essays = np.load('/home/psi/PuchoTask/test_essays.npy')
 
 d=en.Dict('en_US')
 bow = {}
 string = ''
-essays = np.delete(essays, 0) # the label
+# train_essays = np.delete(train_essays, 0) # the label
 i=0
-features = [[]]
-f=[]
+
 
 #To find the average word length from the bag of words representation
 def avr_word_len(bow):
@@ -59,17 +60,26 @@ def count_spell_error(string):
             error+=1
     return error
 
-for essay in essays:
-    bow = ebow.essay_to_bow(essay)
-    f1 = int(no_words(bow))
-    f2 = int(no_unq_words(bow))
-    f3 = int(avr_word_len(bow))
-    f4 = int(count_spell_error(essay))
-    f5 = int(count_commas(essay))
-    f6 = int(sets[i])
-    f=[f1,f2,f3,f4,f5,f6]
-    features.append(f)
-    i+=1
-#converting score to sparse labels for classification
-#[1,2]<->[[0,1,0,0],[0,0,1,0]]
-score = (np.arange(4) == score[:,None]).astype(np.float32)
+def extract_feats(essays,sets):
+    features = [[]]
+    f=[]
+    i=0
+    for essay in essays:
+        bow = ebow.essay_to_bow(essay)
+        f1 = int(no_words(bow))
+        f2 = int(no_unq_words(bow))
+        f3 = int(avr_word_len(bow))
+        f4 = int(count_spell_error(essay))
+        f5 = int(count_commas(essay))
+        f6 = int(sets[i])
+        f = [f1,f2,f3,f4,f5,f6]
+        f = np.array(f)
+        features.append(f)
+        i+=1
+    features = np.array(features)
+    features = np.delete(features, 0)
+    return features
+
+# test_feats = extract_feats(test_essays, test_sets)
+# train_feats = extract_feats(train_essays, train_sets)
+# AND save the above vectors as npy files
