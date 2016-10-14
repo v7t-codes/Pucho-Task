@@ -25,9 +25,9 @@ NN = MLPClassifier(solver='lbfgs', alpha=al[0], \
 NN.fit(feats, labels)
 
 
-##############################MODEL 2##############################################
-RF = ensemble.RandomForestClassifier(n_estimators=20)
-RF.fit(feats, labels)
+##############################MODEL 2##############################################Bad accuracy
+#RF = ensemble.RandomForestClassifier(n_estimators=20)
+#RF.fit(feats, labels)
 
 test_feats = np.load('/home/psi/PuchoTask/test_feats.npy')
 test_ids = np.load('/home/psi/PuchoTask/test_ids.npy')
