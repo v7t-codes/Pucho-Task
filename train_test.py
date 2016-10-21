@@ -20,8 +20,8 @@ feats = scaler.transform(feats)
 
 al=np.logspace(-5,3,5)
 ################################MODEL 1############################################
-NN = MLPClassifier(solver='lbfgs', alpha=al[0], \
-            hidden_layer_sizes=(15, 8), random_state = 1,  max_iter= 600 , activation ='logistic')
+NN = MLPClassifier(solver='lbfgs', alpha=al[1], \
+            hidden_layer_sizes=(20,60), random_state = 1,  max_iter= 450 , activation ='tanh')
 NN.fit(feats, labels)
 
 
