@@ -99,7 +99,7 @@ def extract_feats(essays,sets):
         f6 = int(sets[i])
         f8 = int(sent_count(essay))
         f10 = int(POS_count(essay))
-        f = [f1,f2,f3,f4,f5,f6,f7]
+        f = [f1, f2, f3, f4, f5, f6, f7, f8, f9, f10]
         f = np.array(f)
         features.append(f)
         i+=1
