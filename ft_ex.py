@@ -10,6 +10,10 @@ The following are the features used from the dataset:
 4.Spelling errors / words
 5.Commas
 6.Essay set
+7.Correctly spelled words
+8.Number of sentences
+9.Number of double quotes
+10.Number of unique parts of speech tags
 """
 # train_essays = np.load('/home/psi/PuchoTask/Datasets/essay_train.npy')
 # train_score = np.load('/home/psi/PuchoTask/train_score.npy')
