@@ -4,6 +4,7 @@ import numpy as np
 import nltk
 
 """
+
 The following are the features used from the dataset:
 1.Number of words
 2.Unique words
@@ -14,8 +15,10 @@ The following are the features used from the dataset:
 7.Correctly spelled words
 8.Number of sentences
 9.Number of double quotes
-10.Number of unique parts of speech tags
+10.Unique parts of speech tags count
+
 """
+
 # train_essays = np.load('/home/psi/PuchoTask/Datasets/essay_train.npy')
 # train_score = np.load('/home/psi/PuchoTask/train_score.npy')
 # train_sets = np.load('/home/psi/PuchoTask/Datasets/essay_sets.npy')
