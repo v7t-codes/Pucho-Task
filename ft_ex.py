@@ -64,6 +64,18 @@ def count_spell_error(string):
             error+=1
     return error
 
+
+# To count the number unique of POS tags
+def POS_count(string):
+    x = []
+    words = nltk.tokenize(string.split(' '))
+    for i in words:
+        _, tag = i
+        x.append(tag)
+    x = set(x) # creates a dict with only the unique tags
+    return len(x)
+
+
 def extract_feats(essays,sets):
     features = [[]]
     f=[]
