@@ -1,13 +1,14 @@
 import ebow
 import enchant as en
 import numpy as np
+import nltk
 
 """
 The following are the features used from the dataset:
 1.Number of words
-2.Unique words / words
+2.Unique words
 3.Average word length
-4.Spelling errors / words
+4.Spelling errors
 5.Commas
 6.Essay set
 7.Correctly spelled words
@@ -27,7 +28,6 @@ bow = {}
 string = ''
 # train_essays = np.delete(train_essays, 0) # the label
 i=0
-
 
 #To find the average word length from the bag of words representation
 def avr_word_len(bow):
@@ -50,31 +50,40 @@ def no_unq_words(bow):
     return len(bow)
 
 #To count the number of commas from the essay string
-def count_commas(string):
-    return string.count(',')
+def count_commas_dquots(string):
+    return string.count(','), string.count('"')
 
-#To count the number of spelling errors in an essay
+#To count the number of spelling errors and the correctly spelled words in an essay
 def count_spell_error(string):
-    string= string.lower()
-    check= False
+    string = ((((string.replace(".", " ")).replace(","," ")).replace("?"," ")).replace('!',' '))
+    string = nltk.word_tokenize(string)
+    check = False
     error = 0
+    correct = 0
     for i in string:
+        i = i.lower()
         check = d.check(i)
         if check== True :
+            correct+=1
+        else :
             error+=1
-    return error
-
+    return error, correct
 
 # To count the number unique of POS tags
 def POS_count(string):
     x = []
-    words = nltk.tokenize(string.split(' '))
-    for i in words:
+    words = nltk.word_tokenize(string.split(' '))
+    tagged = nltk.pos_tag(words)
+    for i in tagged:
         _, tag = i
         x.append(tag)
-    x = set(x) # creates a dict with only the unique tags
+    x = set(x)       #creates a dict with only the unique tags
     return len(x)
 
+# To count the number of sentences
+def sent_count(string):
+    cnt = len(string.split('.'))
+    return cnt
 
 def extract_feats(essays,sets):
     features = [[]]
@@ -85,10 +94,12 @@ def extract_feats(essays,sets):
         f1 = int(no_words(bow))
         f2 = int(no_unq_words(bow))
         f3 = int(avr_word_len(bow))
-        f4 = int(count_spell_error(essay))
-        f5 = int(count_commas(essay))
+        f4, f7 = int(count_spell_error(essay))
+        f5 ,f9= int(count_commas_dquots(essay))
         f6 = int(sets[i])
-        f = [f1,f2,f3,f4,f5,f6]
+        f8 = int(sent_count(essay))
+        f10 = int(POS_count(essay))
+        f = [f1,f2,f3,f4,f5,f6,f7]
         f = np.array(f)
         features.append(f)
         i+=1
